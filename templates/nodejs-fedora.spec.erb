@@ -51,6 +51,7 @@ mkdir -p %{buildroot}%{nodejs_sitelib}/<%= spec.npmname %>
 rm -f %{buildroot}%{_bindir}/<%= name %>
 ln -sf %{_libdir}/node_modules/%{npmname}/<%= target -%> %{buildroot}%{_bindir}/<%= name %>
 <% end -%>
+%nodejs_symlink_deps
 
 %clean
 rm -rf %buildroot
