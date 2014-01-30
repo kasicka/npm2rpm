@@ -110,7 +110,9 @@ module Npm2Rpm
 
       require 'erb'
 
-      template_name = File.expand_path(File.join(File.dirname(__FILE__), "..", "..", "templates", "nodejs-opensuse.spec.erb"))
+      template_name = File.expand_path(File.join(File.dirname(__FILE__),
+                                                 "..", "..", "templates",
+                                                 "nodejs-fedora.spec.erb"))
       template = File.read(template_name)
       # -:  omit blank lines ending in -%>
       erb = ERB.new(template, nil, "-")
