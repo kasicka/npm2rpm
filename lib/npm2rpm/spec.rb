@@ -54,7 +54,7 @@ module Npm2Rpm
       @metadata.version
     end
     def licenses
-      [ @metadata.license.nil? ? "Unknown" : @metadata.license ]
+      [ @metadata.npmdata["license"].nil? ? "Unknown" : @metadata.npmdata["license"] ]
     end
     def summary
       @metadata.npmdata["description"]
