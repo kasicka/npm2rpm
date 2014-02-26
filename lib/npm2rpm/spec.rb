@@ -44,7 +44,7 @@ module Npm2Rpm
     public
     def initialize metadata
       @metadata = metadata
-      @name = "nodejs-#{@metadata.name}_#{@metadata.version}"
+      @name = "nodejs-#{@metadata.name}"
     end
 
     def npmname
