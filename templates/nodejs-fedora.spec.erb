@@ -19,8 +19,6 @@ License:        <%= spec.licenses.join(" and ") %>
 License:        CHECK(Nodejs)
 <% end -%>
 
-BuildRoot:      %{_tmppath}/%{pkg_name}-%{version}-%{release}-root-%(%{__id_u} -n)
-
 BuildArch:	noarch
 ExclusiveArch:	%{nodejs_arches} noarch
 
@@ -44,7 +42,6 @@ Requires: <%= d %>
 %description
 <%= spec.description -%>
 
-
 %prep
 %setup -q -n package
 
@@ -52,8 +49,6 @@ Requires: <%= d %>
 #nothing to do
 
 %install
-rm -rf %buildroot
-
 mkdir -p %{buildroot}%{nodejs_sitelib}/%{npm_name}
 
 cp -pr package.json index.js \
@@ -61,7 +56,7 @@ cp -pr package.json index.js \
 
 <% (spec.binfiles||{}).each do |name, target| -%>
 rm -f %{buildroot}%{_bindir}/<%= name %>
-ln -sf %{_libdir}/node_modules/%{npmname}/<%= target -%> %{buildroot}%{_bindir}/<%= name %>
+ln -sf %{_libdir}/node_modules/%{npm_name}/<%= target -%> %{buildroot}%{_bindir}/<%= name %>
 <% end -%>
 %{nodejs_symlink_deps}
 
@@ -70,9 +65,6 @@ ln -sf %{_libdir}/node_modules/%{npmname}/<%= target -%> %{buildroot}%{_bindir}/
 %{nodejs_symlink_deps} --check
 <%= spec.tests %>
 %endif
-
-%clean
-rm -rf %buildroot
 
 %files
 %{nodejs_sitelib}/<%= spec.npmname %>
