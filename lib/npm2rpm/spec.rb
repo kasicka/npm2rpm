@@ -21,6 +21,9 @@ module Npm2Rpm
         # "~1.2.3"
         when /^~?([\d\.]+)(-\d|rc)?$/
           result << "npm(#{name}@#{$1})"
+		# "^1.2.3"
+        when /^\^?([\d\.]+)(-\d|rc)?$/
+          result << "npm(#{name}@#{$1})"  
         # "1.2.0-1.2.3"
         when /^([\d\.]+)-([\d\.]+)$/
           result << "npm(#{name}@#{$2})"
@@ -95,6 +98,17 @@ module Npm2Rpm
     end
     def build_requires
       dependencies @metadata.npmdata["devDependencies"]
+    end
+	def scripts script
+      script_result = Array.new
+      script ||= Hash.new
+      script.each do |script_type, test_script|
+		script_result << test_script
+    end
+    script_result
+    end
+    def tests
+      test = scripts(@metadata.npmdata["scripts"])
     end
 
     def write
