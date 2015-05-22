@@ -5,42 +5,43 @@
 
 %global enable_tests 1
 
-Name:           <%= "nodejs-" + spec.npmname %>
-Version:        <%= spec.version %>
-Release:        0%{?dist}
-Summary:        <%= spec.summary %>
+Name:		<%= "nodejs-" + spec.npmname %>
+Version:	<%= spec.version %>
+Release:	0%{?dist}
+Summary:	<%= spec.summary %>
 <% unless spec.homepage.nil? || spec.homepage.empty? -%>
-Url:            <%= spec.homepage %>
+Url:		<%= spec.homepage %>
 <% end -%>
-Source0:        <%= spec.source %>
+Source0:	https://registry.npmjs.org/%{npm_name}/-/%{npm_name}-%{version}.tgz
 <% unless spec.licenses.empty? -%>
-License:        <%= spec.licenses.join(" and ") %>
+License:	<%= spec.licenses.join(" and ") %>
 <% else -%>
-License:        CHECK(Nodejs)
+License:	CHECK(Nodejs)
 <% end -%>
 
 BuildArch:	noarch
 ExclusiveArch:	%{nodejs_arches} noarch
 
-BuildRequires:  nodejs-devel
+BuildRequires:	nodejs-devel
 BuildRequires:	nodejs-packaging
 
 %if 0%{?enable_tests}
 <% spec.build_requires.uniq.sort.each do |d| -%>
-BuildRequires: <%= d %>
+BuildRequires:	<%= d %>
 <% end -%>
 %endif
 
 <% spec.requires.uniq.sort.each do |d| -%>
-BuildRequires: <%= d %>
+BuildRequires:	<%= d %>
 <% end -%>
 
 <% spec.requires.uniq.sort.each do |d| -%>
-Requires: <%= d %>
+Requires:	<%= d %>
 <% end -%>
 
 %description
 <%= spec.description -%>
+
 
 %prep
 %setup -q -n package
